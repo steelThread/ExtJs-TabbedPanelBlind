@@ -1,0 +1,17 @@
+.ux-blind ul.x-tab-strip li {
+	float: right;
+}
+.ux-blind {
+    position: absolute;
+    z-index: 14999;
+}
+
+.ux-blind ul.x-tab-strip-bottom {
+    background-color: transparent;
+    background-image: none;
+}
+
+.ux-blind .x-tab-panel-header, .x-tab-panel-footer {
+    background-color: transparent;
+	border: 0px;
+}

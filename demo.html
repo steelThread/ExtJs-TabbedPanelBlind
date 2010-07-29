@@ -6,28 +6,12 @@
     <title>TabbedPanelBlind Demo</title>
     <link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-3.2.1/resources/css/ext-all.css" />
     <link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-3.2.1/resources/css/xtheme-blue.css" />
+    <link rel="stylesheet" type="text/css" href="resources/css/tabbedPanelBlind.css" />
     <style type="text/css">
         body {
           padding: 20px; 
           font: normal normal normal 14px/normal arial, tahoma, verdana, helvetica;
         }
-
-		.ux-blind ul.x-tab-strip li {
-			float: right;
-		}
-		.ux-blind {
-            position: absolute;
-            z-index: 14999;
-        }
-        
-        .ux-blind ul.x-tab-strip-bottom {
-	        background-color: #FFFFFF;
-	        background-image: none;
-        }
-
-        .ux-blind .x-tab-panel-header, .x-tab-panel-footer {
-	    	border: 0px;
-		}
     </style>
 
     <script src="http://extjs.cachefly.net/ext-3.2.1/adapter/ext/ext-base-debug.js" type="text/javascript" ></script>
@@ -53,7 +37,7 @@
 			        afterrender: function(panel) {
 		                new Ext.ux.TabbedPanelBlind({
 			                panel: panel,
-			                mask: false,
+			                mask: true,
 			                activeTab: 0,
 							items:[{
 								title: 'Html Tab', 

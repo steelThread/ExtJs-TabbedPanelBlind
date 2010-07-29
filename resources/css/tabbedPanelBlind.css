@@ -1,3 +1,6 @@
+.ux-blind .x-tab-panel-footer {
+    padding-top: 1px;
+}
 .ux-blind ul.x-tab-strip li {
 	float: right;
 }

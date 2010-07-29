@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.onTextw3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>TabbedPanelBlind Demo</title>
+    <link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-3.2.1/resources/css/ext-all.css" />
+    <link rel="stylesheet" type="text/css" href="http://extjs.cachefly.net/ext-3.2.1/resources/css/xtheme-blue.css" />
+    <style type="text/css">
+        body {
+          padding: 20px; 
+          font: normal normal normal 14px/normal arial, tahoma, verdana, helvetica;
+        }
+
+		.ux-blind ul.x-tab-strip li {
+			float: right;
+		}
+		.ux-blind {
+            position: absolute;
+            z-index: 14999;
+        }
+        
+        .ux-blind ul.x-tab-strip-bottom {
+	        background-color: #FFFFFF;
+	        background-image: none;
+        }
+
+        .ux-blind .x-tab-panel-header, .x-tab-panel-footer {
+	    	border: 0px;
+		}
+    </style>
+
+    <script src="http://extjs.cachefly.net/ext-3.2.1/adapter/ext/ext-base-debug.js" type="text/javascript" ></script>
+    <script src="http://extjs.cachefly.net/ext-3.2.1/ext-all-debug.js" type="text/javascript"></script>
+    <script src="js/TabbedPanelBlind.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        Ext.onReady(function() { 
+	       var bogusMarkup = '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed metus nibh, sodales a, porta at, vulputate eget, dui. Pellentesque ut nisl. Maecenas tortor turpis, interdum non, sodales non, iaculis ac, lacus. Vestibulum auctor, tortor quis iaculis malesuada, libero lectus bibendum purus, sit amet tincidunt quam turpis vel lacus. In pellentesque nisl non sem. Suspendisse nunc sem, pretium eget, cursus a, fringilla vel, urna.<br/><br/>Aliquam commodo ullamcorper erat. Nullam vel justo in neque porttitor laoreet. Aenean lacus dui, consequat eu, adipiscing eget, nonummy non, nisi. Morbi nunc est, dignissim non, ornare sed, luctus eu, massa. Vivamus eget quam. Vivamus tincidunt diam nec urna. Curabitur velit.</p>';
+	
+           var tbar = {
+               items: [{
+                  text: 'Toolbar Item'
+               }]    
+           };
+        
+           new Ext.Panel({
+               title: 'Panel with Toolbar',   
+               tbar: tbar,
+               renderTo: 'panel',
+               height: 400,
+               width: 600,
+               listeners: {
+			        afterrender: function(panel) {
+		                new Ext.ux.TabbedPanelBlind({
+			                panel: panel,
+			                mask: false,
+			                activeTab: 0,
+							items:[{
+								title: 'Html Tab', 
+								padding: 5,
+								xtype: 'form',
+								height: 165,
+								html: bogusMarkup
+							},{
+								title: 'Form Tab', 
+								iconCls: 'x-icon-user',
+								padding: 5,
+								xtype: 'form',
+								autoHeight: true,
+								defaultType: 'textfield',
+								buttonAlign: 'left',
+							    items: [{
+						                fieldLabel: 'First Name',
+						                name: 'first',
+						                allowBlank:false
+						            },{
+						                fieldLabel: 'Last Name',
+						                name: 'last'
+						            },{
+						                fieldLabel: 'Company',
+						                name: 'company'
+						            }, {
+						                fieldLabel: 'Email',
+						                name: 'email',
+						                vtype:'email'
+						            }
+						        ],
+							    buttons: [
+							        {text: 'Save'},
+							        {text: 'Cancel'}
+							    ]
+							},{
+								title: 'Grid Tab', 
+								padding: 10,
+								html: 'Grid goes here.'
+							}]
+			            });	
+			        }
+			    }	
+           });      
+        });
+    </script>
+</head>
+<body>
+    <div id="panel"></div>
+</body>
+</html>

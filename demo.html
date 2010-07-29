@@ -27,58 +27,59 @@
                }]    
            };
         
+           var blind = new Ext.ux.TabbedPanelBlindPlugin({
+               mask: true,
+               activeTab: 0,
+				items:[{
+					title: 'Html Tab', 
+					padding: 5,
+					xtype: 'form',
+					height: 165,
+					html: bogusMarkup
+				},{
+					title: 'Form Tab', 
+					iconCls: 'x-icon-user',
+					padding: 5,
+					xtype: 'form',
+					autoHeight: true,
+					defaultType: 'textfield',
+					buttonAlign: 'left',
+				    items: [{
+			                fieldLabel: 'First Name',
+			                name: 'first',
+			                allowBlank:false
+			            },{
+			                fieldLabel: 'Last Name',
+			                name: 'last'
+			            },{
+			                fieldLabel: 'Company',
+			                name: 'company'
+			            }, {
+			                fieldLabel: 'Email',
+			                name: 'email',
+			                vtype:'email'
+			            }
+			        ],
+				    buttons: [
+				        {text: 'Save'},
+				        {text: 'Cancel'}
+				    ]
+				},{
+					title: 'Grid Tab', 
+					padding: 10,
+					html: 'Grid goes here.'
+				}]
+           });	
+
            new Ext.Panel({
                title: 'Panel with Toolbar',   
                tbar: tbar,
                renderTo: 'panel',
                height: 400,
                width: 600,
+               plugins: [blind],
                listeners: {
 			        afterrender: function(panel) {
-		                new Ext.ux.TabbedPanelBlind({
-			                panel: panel,
-			                mask: true,
-			                activeTab: 0,
-							items:[{
-								title: 'Html Tab', 
-								padding: 5,
-								xtype: 'form',
-								height: 165,
-								html: bogusMarkup
-							},{
-								title: 'Form Tab', 
-								iconCls: 'x-icon-user',
-								padding: 5,
-								xtype: 'form',
-								autoHeight: true,
-								defaultType: 'textfield',
-								buttonAlign: 'left',
-							    items: [{
-						                fieldLabel: 'First Name',
-						                name: 'first',
-						                allowBlank:false
-						            },{
-						                fieldLabel: 'Last Name',
-						                name: 'last'
-						            },{
-						                fieldLabel: 'Company',
-						                name: 'company'
-						            }, {
-						                fieldLabel: 'Email',
-						                name: 'email',
-						                vtype:'email'
-						            }
-						        ],
-							    buttons: [
-							        {text: 'Save'},
-							        {text: 'Cancel'}
-							    ]
-							},{
-								title: 'Grid Tab', 
-								padding: 10,
-								html: 'Grid goes here.'
-							}]
-			            });	
 			        }
 			    }	
            });      

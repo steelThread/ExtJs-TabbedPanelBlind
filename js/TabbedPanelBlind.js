@@ -4,6 +4,22 @@ Ext.ns("Ext.ux");
  */
 Ext.ux.TabbedPanelBlind = Ext.extend(Ext.TabPanel, {
     mask: true,
+    cls: 'ux-blind',
+    resizeTabs: true, 
+    forceLayout: true,
+    minTabWidth: 115,
+    tabWidth: 140,
+    collapsed: true,
+    autoHeight: true,
+    defaults: {autoScroll: true},
+    tabPosition: 'bottom',
+    collapseEl: 'body',
+	listeners: {
+		afterlayout: function(c) {
+			c.strip.setWidth(c.stripWrap.getWidth() - 2);
+		}
+	},
+		         
     initComponent: function() {
 	     var panel = this.panel;
 	     var el = panel.body.insertFirst({
@@ -13,22 +29,7 @@ Ext.ux.TabbedPanelBlind = Ext.extend(Ext.TabPanel, {
 		 // Default values
 	     Ext.apply(this, {
 		    renderTo: el,
-		    cls: 'ux-blind',
-	        resizeTabs: true, 
-	        forceLayout: true,
-	        minTabWidth: 115,
-	        tabWidth: 140,
-	        collapsed: true,
-	        width: panel.getWidth(),
-	        autoHeight: true,
-	        defaults: {autoScroll: true},
-	        tabPosition: 'bottom',
-	        collapseEl: 'body',
-			listeners: {
-				afterlayout: function(c) {
-					c.strip.setWidth(c.stripWrap.getWidth() - 2);
-				}
-			}	         
+		    width: panel.getWidth()
 	     });
 	
 	    panel.on('resize', this.adjustWidth, this);
@@ -86,3 +87,23 @@ Ext.ux.TabbedPanelBlind = Ext.extend(Ext.TabPanel, {
 });
 
 Ext.reg("tabbedpanelblind", Ext.ux.TabbedPanelBlind);
+
+
+
+/**
+ * Plugin wrappers
+ */
+Ext.ux.TabbedPanelBlindPlugin = Ext.extend(Ext.util.Observable, {
+	constructor: function(config) {
+	    Ext.apply(this, config);	
+	},
+	
+    init: function(panel) {
+	    this.panel = panel;
+		panel.on('afterrender', this.onAfterPanelRender, this, {single: true});
+    },
+
+    onAfterPanelRender: function() {
+	    new Ext.ux.TabbedPanelBlind(this);
+    }
+});

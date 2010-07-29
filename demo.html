@@ -12,6 +12,14 @@
           padding: 20px; 
           font: normal normal normal 14px/normal arial, tahoma, verdana, helvetica;
         }
+
+        .x-html-icon {
+            background-image: url(resources/images/demo/html.png) !important;
+        }
+
+        .x-grid-icon {
+            background-image: url(resources/images/demo/grid.png) !important;
+        }
     </style>
 
     <script src="http://extjs.cachefly.net/ext-3.2.1/adapter/ext/ext-base-debug.js" type="text/javascript" ></script>
@@ -28,17 +36,16 @@
            };
         
            var blind = new Ext.ux.TabbedPanelBlindPlugin({
-               mask: true,
                activeTab: 0,
 				items:[{
 					title: 'Html Tab', 
+					iconCls: 'x-html-icon',
 					padding: 5,
 					xtype: 'form',
 					height: 165,
 					html: bogusMarkup
 				},{
 					title: 'Form Tab', 
-					iconCls: 'x-icon-user',
 					padding: 5,
 					xtype: 'form',
 					autoHeight: true,
@@ -66,6 +73,7 @@
 				    ]
 				},{
 					title: 'Grid Tab', 
+					iconCls: 'x-grid-icon',
 					padding: 10,
 					html: 'Grid goes here.'
 				}]
@@ -77,11 +85,9 @@
                renderTo: 'panel',
                height: 400,
                width: 600,
-               plugins: [blind],
-               listeners: {
-			        afterrender: function(panel) {
-			        }
-			    }	
+               padding: {top: 30},
+               html: bogusMarkup,
+               plugins: [blind]
            });      
         });
     </script>

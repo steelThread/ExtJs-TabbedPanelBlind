@@ -1,39 +1,53 @@
 Ext.ns("Ext.ux");
 
-/**
+/*!
+ * Copyright(c) 2010, http://www.mcdconsultingllc.com
+ * 
+ * Licensed under the terms of the Open Source LGPL 3.0
+ * http://www.gnu.org/licenses/lgpl.html
+ * @author Sean McDaniel <sean@mcdconsulting.com>
  */
-Ext.ux.TabbedPanelBlind = Ext.extend(Ext.TabPanel, {
-    mask: true,
-    cls: 'ux-blind',
-    resizeTabs: true, 
-    forceLayout: true,
-    minTabWidth: 115,
-    tabWidth: 140,
-    collapsed: true,
-    autoHeight: true,
-    defaults: {autoScroll: true},
-    tabPosition: 'bottom',
-    collapseEl: 'body',
-	listeners: {
-		afterlayout: function(c) {
-			c.strip.setWidth(c.stripWrap.getWidth() - 2);
-		}
-	},
-		         
+
+/**
+ * @class Ext.ux.TabbedPanelBlind
+ * @extends Ext.TabPanel
+ * A tab based blind for panels.
+ * @constructor
+ * Creates a new TabbedPanelBlind
+ * @param {Object} config Configuration options. Note that you can pass in any TapPanel configuration options.  Note that the following
+ * options will be ignored: {renderTo, width, cls, tabPosition, autoHeight, collapsed, collapseEl}
+ */
+Ext.ux.TabbedPanelBlind = Ext.extend(Ext.TabPanel, {		         
+    /**
+     * @cfg {Boolean} mask Should mask host panel when expanded (defaults to false)
+     */
+    mask: false,
+
+    /**
+     * @cfg {Boolean} resizeTabs Should resize tabs (defaults to true)
+     */
+    resizeTabs: true,
+
     initComponent: function() {
 	     var panel = this.panel;
-	     var el = panel.body.insertFirst({
-             tag: 'div'
-	     });
-	
-		 // Default values
 	     Ext.apply(this, {
-		    renderTo: el,
-		    width: panel.getWidth()
+		    renderTo: panel.body.insertFirst({tag: 'div'}),
+		    width: panel.getWidth(),
+		    cls: 'ux-blind',
+		    tabPosition: 'bottom',
+		    autoHeight: true,
+		    collapsed: true,
+		    collapseEl: 'body'
 	     });
 	
-	    panel.on('resize', this.adjustWidth, this);
+	    panel.on('resize', this.adjustWidth, this);	
+		this.on('afterlayout', this.adjustStripWidth);
+	
 	    Ext.ux.TabbedPanelBlind.superclass.initComponent.call(this);	
+    },
+
+    adjustStripWidth: function(c) {
+	    c.strip.setWidth(c.stripWrap.getWidth() - 2);
     },
 
     adjustWidth: function(panel, width, height) {
@@ -86,12 +100,15 @@ Ext.ux.TabbedPanelBlind = Ext.extend(Ext.TabPanel, {
     }
 });
 
-Ext.reg("tabbedpanelblind", Ext.ux.TabbedPanelBlind);
-
-
 
 /**
- * Plugin wrappers
+ * @class Ext.ux.TabbedPanelBlindPlugin
+ * @extends Ext.util.Observable
+ * A plugin for tab based blind for panels.
+ * @constructor
+ * Creates a new TabbedPanelBlindPlugin
+ * @param {Object} config Configuration options. Note that you can pass in any TapPanel configuration options.  Note that the following
+ * options will be ignored: {renderTo, width, cls, tabPosition, autoHeight, collapsed, collapseEl}
  */
 Ext.ux.TabbedPanelBlindPlugin = Ext.extend(Ext.util.Observable, {
 	constructor: function(config) {

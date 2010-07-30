@@ -21,7 +21,7 @@ Ext.ux.TabbedPanelBlind = Ext.extend(Ext.TabPanel, {
     /**
      * @cfg {Boolean} mask Should mask host panel when expanded (defaults to false)
      */
-    mask: false,
+    mask: true,
 
     /**
      * @cfg {Boolean} resizeTabs Should resize tabs (defaults to true)
@@ -73,13 +73,14 @@ Ext.ux.TabbedPanelBlind = Ext.extend(Ext.TabPanel, {
     },
 
     onStripMouseDown: function(e) {
-	    var currentlyActive = this.activeTab;
+	    var t = this.findTargets(e);
+	    var itemClicked = t.item;
 	
+	    var currentlyActive = this.activeTab;
 	    Ext.ux.TabbedPanelBlind.superclass.onStripMouseDown.call(this, e);
-	    if (this.collapsed) {
+	    if (this.collapsed && itemClicked) {
 		    this.expand();
 	    } else {
-		    var t = this.findTargets(e);		   
 		    if ((t.item && t.item == currentlyActive) || !t.item) {
 			    this.collapse();
 			}

@@ -37,12 +37,13 @@
         
            var blind = new Ext.ux.TabbedPanelBlindPlugin({
                activeTab: 0,
+               tabWidth: 150,
                 items:[{
-                    title: 'Html Tab', 
+                    title: 'Scrolling Tab', 
                     iconCls: 'x-html-icon',
+                    autoScroll: true,
                     padding: 5,
-                    xtype: 'form',
-                    height: 165,
+                    height: 100,
                     html: bogusMarkup
                 },{
                     title: 'Form Tab', 
@@ -84,7 +85,7 @@
                tbar: tbar,
                renderTo: 'panel',
                height: 400,
-               width: 600,
+               width: 800,
                padding: {top: 30},
                html: '<br><br>' + bogusMarkup,
                plugins: [blind]

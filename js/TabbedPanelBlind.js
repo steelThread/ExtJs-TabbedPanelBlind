@@ -17,7 +17,7 @@ Ext.ns("Ext.ux");
  * @param {Object} config Configuration options. Note that you can pass in any TapPanel configuration options.  Note that the following
  * options will be ignored: {renderTo, width, cls, tabPosition, autoHeight, collapsed, collapseEl}
  */
-Ext.ux.TabbedPanelBlind = Ext.extend(Ext.TabPanel, {		         
+Ext.ux.TabbedPanelBlind = Ext.extend(Ext.TabPanel, {                 
     /**
      * @cfg {Boolean} mask Should mask host panel when expanded (defaults to false)
      */
@@ -29,62 +29,62 @@ Ext.ux.TabbedPanelBlind = Ext.extend(Ext.TabPanel, {
     resizeTabs: true,
 
     initComponent: function() {
-	     var panel = this.panel;
-	     Ext.apply(this, {
-		    renderTo: panel.body.insertFirst({tag: 'div'}),
-		    width: panel.getWidth(),
-		    cls: 'ux-blind',
-		    tabPosition: 'bottom',
-		    autoHeight: true,
-		    collapsed: true,
-		    collapseEl: 'body'
-	     });
-	
-	    panel.on('resize', this.adjustWidth, this);	
-		this.on('afterlayout', this.adjustStripWidth);
-	
-	    Ext.ux.TabbedPanelBlind.superclass.initComponent.call(this);	
+        var panel = this.panel;
+        Ext.apply(this, {
+           renderTo: panel.body.insertFirst({tag: 'div'}),
+           width: panel.getWidth(),
+           cls: 'ux-blind',
+           tabPosition: 'bottom',
+           autoHeight: true,
+           collapsed: true,
+           collapseEl: 'body'
+        });
+    
+        panel.on('resize', this.adjustWidth, this); 
+        this.on('afterlayout', this.adjustStripWidth);
+    
+        Ext.ux.TabbedPanelBlind.superclass.initComponent.call(this);    
     },
 
     adjustStripWidth: function(c) {
-	    c.strip.setWidth(c.stripWrap.getWidth() - 2);
+        c.strip.setWidth(c.stripWrap.getWidth() - 2);
     },
 
     adjustWidth: function(panel, width, height) {
-	   var collapsed = this.collapsed;
-	   this.setWidth(width);
-	   this.collapsed = false;
-	   this.syncSize();
-	   this.collapsed = collapsed;
+       var collapsed = this.collapsed;
+       this.setWidth(width);
+       this.collapsed = false;
+       this.syncSize();
+       this.collapsed = collapsed;
     },
 
     afterCollapse: function(anim) {
-	    Ext.ux.TabbedPanelBlind.superclass.afterCollapse.call(this, anim);
-	    this.clearMonitor();
-	    if (this.mask) {
-	        this.panel.enable();
-	    }
+        Ext.ux.TabbedPanelBlind.superclass.afterCollapse.call(this, anim);
+        this.clearMonitor();
+        if (this.mask) {
+            this.panel.enable();
+        }
     },
 
     collapseIf: function(e) {
-	    if(!e.within(this.el)){
+        if(!e.within(this.el)){
             this.collapse();
         }
     },
 
     onStripMouseDown: function(e) {
-	    var t = this.findTargets(e);
-	    var itemClicked = t.item;
-	
+        var t = this.findTargets(e);
+        var itemClicked = t.item;
+    
         var currentlyActive = this.activeTab;
-	    Ext.ux.TabbedPanelBlind.superclass.onStripMouseDown.call(this, e);
-	    if (this.collapsed && itemClicked) {
-		    this.expand();
-	    } else {
-		    if ((t.item && t.item == currentlyActive) || !t.item) {
-			    this.collapse();
-			}
-	    }
+        Ext.ux.TabbedPanelBlind.superclass.onStripMouseDown.call(this, e);
+        if (this.collapsed && itemClicked) {
+            this.expand();
+        } else {
+            if ((t.item && t.item == currentlyActive) || !t.item) {
+                this.collapse();
+            }
+        }
     },
 
     clearMonitor: function(){
@@ -92,12 +92,12 @@ Ext.ux.TabbedPanelBlind = Ext.extend(Ext.TabPanel, {
     },
 
     expand: function(anim) {
-	    if (this.mask) {
-	        this.panel.disable();
-	    }
-	
-	    Ext.getDoc().on("mousedown", this.collapseIf, this);	
-	    return Ext.ux.TabbedPanelBlind.superclass.expand.call(this, anim);
+        if (this.mask) {
+            this.panel.disable();
+        }
+    
+        Ext.getDoc().on("mousedown", this.collapseIf, this);    
+        return Ext.ux.TabbedPanelBlind.superclass.expand.call(this, anim);
     }
 });
 
@@ -112,16 +112,16 @@ Ext.ux.TabbedPanelBlind = Ext.extend(Ext.TabPanel, {
  * options will be ignored: {renderTo, width, cls, tabPosition, autoHeight, collapsed, collapseEl}
  */
 Ext.ux.TabbedPanelBlindPlugin = Ext.extend(Ext.util.Observable, {
-	constructor: function(config) {
-	    Ext.apply(this, config);	
-	},
-	
+    constructor: function(config) {
+        Ext.apply(this, config);    
+    },
+    
     init: function(panel) {
-	    this.panel = panel;
-		panel.on('afterrender', this.onAfterPanelRender, this, {single: true});
+        this.panel = panel;
+        panel.on('afterrender', this.onAfterPanelRender, this, {single: true});
     },
 
     onAfterPanelRender: function() {
-	    new Ext.ux.TabbedPanelBlind(this);
+        new Ext.ux.TabbedPanelBlind(this);
     }
 });

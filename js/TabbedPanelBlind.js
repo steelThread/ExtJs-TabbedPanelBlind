@@ -37,7 +37,8 @@ Ext.ux.TabbedPanelBlind = Ext.extend(Ext.TabPanel, {
            tabPosition: 'bottom',
            autoHeight: true,
            collapsed: true,
-           collapseEl: 'body'
+           collapseEl: 'body',
+           forceLayout: true
         });
     
         panel.on('resize', this.adjustWidth, this); 

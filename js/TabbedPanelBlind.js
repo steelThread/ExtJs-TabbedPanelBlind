@@ -67,7 +67,7 @@ Ext.ux.TabbedPanelBlind = Ext.extend(Ext.TabPanel, {
     },
 
     collapseIf: function(e) {
-        if(!e.within(this.el)){
+        if (!e.within(this.el)){
             this.collapse();
         }
     },
@@ -78,12 +78,12 @@ Ext.ux.TabbedPanelBlind = Ext.extend(Ext.TabPanel, {
     
         var currentlyActive = this.activeTab;
         Ext.ux.TabbedPanelBlind.superclass.onStripMouseDown.call(this, e);
-        if (this.collapsed && itemClicked) {
+
+        if (itemClicked && this.collapsed) {
             this.expand();
-        } else {
-            if ((t.item && t.item == currentlyActive) || !t.item) {
-                this.collapse();
-            }
+
+        } else if (!itemClicked || (itemClicked == currentlyActive)) {
+            this.collapse();
         }
     },
 

@@ -76,7 +76,7 @@ Ext.ux.TabbedPanelBlind = Ext.extend(Ext.TabPanel, {
 	    var t = this.findTargets(e);
 	    var itemClicked = t.item;
 	
-	    var currentlyActive = this.activeTab;
+        var currentlyActive = this.activeTab;
 	    Ext.ux.TabbedPanelBlind.superclass.onStripMouseDown.call(this, e);
 	    if (this.collapsed && itemClicked) {
 		    this.expand();

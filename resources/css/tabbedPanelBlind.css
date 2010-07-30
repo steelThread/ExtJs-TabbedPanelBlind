@@ -2,7 +2,7 @@
     padding-top: 0px;
 }
 .ux-blind ul.x-tab-strip li {
-	float: right;
+    float: right;
 }
 .ux-blind {
     position: absolute;
@@ -16,5 +16,5 @@
 
 .ux-blind .x-tab-panel-header, .x-tab-panel-footer {
     background-color: transparent;
-	border: 0px;
+    border: 0px;
 }
